@@ -1,6 +1,6 @@
 // Define the area of interest (AOI) as Austin, Texas with a rectangular buffer
 var austinCoords = ee.Geometry.Point([-98.46, 30.18]);
-var bufferSize = 40000; // 10 km
+var bufferSize = 60000; // 10 km
 
 // Create a rectangular buffer around the point
 var aoi = austinCoords.buffer(bufferSize).bounds();
@@ -51,6 +51,7 @@ dates.evaluate(function(datesList) {
       folder: 'flood',
       scale: 10,
       region: aoi,
+      maxPixels: 1e13,
       fileFormat: 'GeoTIFF'
     });
 
