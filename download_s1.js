@@ -45,7 +45,7 @@ dates.evaluate(function(datesList) {
     // Select Water and Flooded Vegetation Bands
     var water = dailyImages.select('water').rename('Water');
     var floodedVegetation = dailyImages.select('flooded_vegetation').rename('Flooded_Vegetation');
-    var s1water = dailyImages.select('VV').rename('VV');
+    var s1water = s1dailyImages.select('VV').rename('VV');
 
     // Add the Water and Flooded Vegetation Layers to the Map with improved palettes
     Map.addLayer(water, {min: 0, max: 1, palette: ['0000FF', '00FFFF', 'ADD8E6']}, 'Water ' + date);
