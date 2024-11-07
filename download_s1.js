@@ -73,7 +73,7 @@ dates.evaluate(function(datesList) {
 
     Export.image.toDrive({
       image: floodedVegetation,
-      description: 'FloodedVegetation_DynamicWorld_Austin_' + date + '_GeoTIFF',
+      description: 'FloodedVegetation_DynamicWorld_gillespie_' + date + '_GeoTIFF',
       folder: 'flood',
       scale: 10,
       region: aoi,
