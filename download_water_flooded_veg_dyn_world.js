@@ -16,9 +16,7 @@ var endDate = ee.Date('2023-12-31');
 var imageCollection = ee.ImageCollection("GOOGLE/DYNAMICWORLD/V1")
                         .filterBounds(aoi)
                         .filterDate(startDate, endDate);
-var s1imageCollection = ee.ImageCollection("COPERNICUS/S1_GRD")
-                        .filterBounds(aoi)
-                        .filterDate(startDate, endDate);
+
 
 var dates = imageCollection.aggregate_array('system:time_start')
                             .map(function(date) {
@@ -37,15 +35,12 @@ dates.evaluate(function(datesList) {
                       .median()
                       .clip(aoi);
         // Filter images for the specific date
-    var s1dailyImages = s1imageCollection
-                      .filterDate(dateStart, dateEnd)
-                      .median()
-                      .clip(aoi);
+    
 
     // Select Water and Flooded Vegetation Bands
     var water = dailyImages.select('water').rename('Water');
     var floodedVegetation = dailyImages.select('flooded_vegetation').rename('Flooded_Vegetation');
-    var s1water = s1dailyImages.select('VV').rename('VV');
+    
 
     // Add the Water and Flooded Vegetation Layers to the Map with improved palettes
     Map.addLayer(water, {min: 0, max: 1, palette: ['0000FF', '00FFFF', 'ADD8E6']}, 'Water ' + date);
@@ -61,14 +56,7 @@ dates.evaluate(function(datesList) {
       fileFormat: 'GeoTIFF'
     });
 
-    Export.image.toDrive({
-      image: s1water,
-      description: 's1_VV_gillespie_' + date + '_GeoTIFF',
-      folder: 'flood',
-      scale: 10,
-      region: aoi,
-      fileFormat: 'GeoTIFF'
-    });
+
 
 
     Export.image.toDrive({
